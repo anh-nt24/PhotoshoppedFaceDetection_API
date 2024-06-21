@@ -6,6 +6,11 @@ name = "pypi"
 [packages]
 django = "*"
 djangorestframework = "*"
+pillow = "*"
+numpy = "*"
+opencv-python = "*"
+torch = "*"
+torchvision = "*"
 
 [dev-packages]
 
