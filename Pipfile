@@ -11,6 +11,8 @@ numpy = "*"
 opencv-python = "*"
 torch = "*"
 torchvision = "*"
+matplotlib = "*"
+gdown = "*"
 
 [dev-packages]
 
