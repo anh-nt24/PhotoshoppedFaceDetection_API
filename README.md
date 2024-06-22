@@ -16,8 +16,9 @@ Frontend repository: [Check here](https://github.com/anh-nt24/PhotoshoppedFaceDe
 
 - Django
 - Django REST framework
-- OpenCV (for image processing)
 - Pillow (for image handling)
+- Torch, Torchvision (for detection model)
+- Matplotlib (for highlighting heatmap)
 
 ## Project Structure
 
