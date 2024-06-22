@@ -68,8 +68,8 @@ Follow these steps to set up the project on your local machine.
 1. **Clone the Repository:**
 
    ```sh
-   git clone https://github.com/anh-nt24/PurePixel-Backend.git
-   cd PurePixel-Backend
+   git clone https://github.com/anh-nt24/PhotoshoppedFaceDetection_API.git
+   cd PhotoshoppedFaceDetection_API
     ```
 
 2. **Install Dependencies:**
@@ -90,11 +90,6 @@ Follow these steps to set up the project on your local machine.
     cd model
     gdown --folder https://drive.google.com/drive/folders/16adI1BoeAtjjSfF5ZxZ34Vlt4jZg91Rs?usp=sharing
 
-    ```
-
-4. **Apply Migrations:**
-    ```sh
-    python manage.py migrate
     ```
 
 5. **Run the Development Server:**
