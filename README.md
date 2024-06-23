@@ -94,7 +94,7 @@ Follow these steps to set up the project on your local machine.
 
 5. **Run the Development Server:**
     ```sh
-    python manage.py runserver
+    pipenv run python manage.py runserver
     ```
 
 ## API Endpoints
