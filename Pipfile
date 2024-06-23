@@ -12,7 +12,7 @@ torch = "*"
 torchvision = "*"
 matplotlib = "*"
 gdown = "*"
-
+ 
 [dev-packages]
 
 [requires]

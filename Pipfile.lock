@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "0fa8bab03a9a768e6d28b50eda1a0854482948532b400a6bacd61dd28035e4b0"
+            "sha256": "02c857d0b553b2731109fa9b7851ee3e6adf7c310064734c916742bbaf872046"
         },
         "pipfile-spec": 6,
         "requires": {
@@ -15,7 +15,7 @@
                 "verify_ssl": true
             }
         ]
-    },
+    }, 
     "default": {
         "asgiref": {
             "hashes": [
