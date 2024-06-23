@@ -12,6 +12,21 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 
 from pathlib import Path
 import os
+import socket
+
+def get_local_ip():
+    try:
+        # Connect to an external address (doesn't have to be reachable)
+        s = socket.socket(socket.AF_INET, socket.SOCK_DGRAM)
+        s.connect(('8.8.8.8', 80))
+        local_ip = s.getsockname()[0]
+        s.close()
+        return local_ip
+    except Exception as e:
+        return str(e)
+
+local_ip = get_local_ip()
+print(local_ip)
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -23,7 +38,7 @@ SECRET_KEY = 'django-insecure-jo!2r$%bmq3ip*rzokcia^(^&5x7(+zzxe$g22qtf(%*+pjx$*
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['192.168.1.2', '192.168.1.8', '192.168.1.4', '192.168.1.5']
+ALLOWED_HOSTS = ['127.0.0.1', local_ip]
 
 
 # Application definition
@@ -119,5 +134,5 @@ DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
 
 # Configure media settings
-MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = 'media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, MEDIA_URL)
