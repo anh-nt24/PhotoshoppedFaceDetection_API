@@ -1,6 +1,0 @@
-Watching for file changes with StatReloader
-Watching for file changes with StatReloader
-192.168.1.10
-[23/Jun/2024 05:22:05] "POST /api/detect-regions/ HTTP/1.1" 200 150097
-[23/Jun/2024 05:22:19] "POST /api/detect-regions/ HTTP/1.1" 200 549389
-192.168.1.10
