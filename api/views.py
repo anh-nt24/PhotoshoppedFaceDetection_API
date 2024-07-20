@@ -8,6 +8,7 @@ import io
 from PIL import Image
 from model.detector import ImageManipulationDetector
 from model.UNet import UNet
+import dlib
 
 class DetectRegionsView(APIView):
     def post(self, request, *args, **kwargs):
@@ -23,32 +24,40 @@ class DetectRegionsView(APIView):
 
             image = Image.open(image_file)
 
-            # detection
+            # Check if the image contains a face
+            face_detected = self.check_for_face(image)
+
+            # No face is detected
+            if not face_detected:
+                return Response({'error': 'The uploaded image does not contain a human face.', 'face_detected': False}, status=status.HTTP_400_BAD_REQUEST)
+
+            # Detection
             try:
                 heatmap = detector.predict(image)
             except RuntimeError as e:
                 return Response({'error': str(e)}, status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-
             buffer = io.BytesIO()
-            heatmap.save(buffer, format='PNG') # save the PIL image to the buffer in PNG format
+            heatmap.save(buffer, format='PNG')  # save the PIL image to the buffer in PNG format
             byte_im = buffer.getvalue()
 
-            return HttpResponse(byte_im, content_type='image/png')
+            response = HttpResponse(byte_im, content_type='image/png')
+            response['face_detected'] = 'true'
+            return response
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
     
     def validate_image(self, image_file):
-        # check file type
+        # Check file type
         allowed_file_types = ['image/jpeg', 'image/png']
         if image_file.content_type not in allowed_file_types:
             return Response({'error': 'Unsupported file type. Allowed types are JPEG and PNG.'}, status=status.HTTP_400_BAD_REQUEST)
         
-        # check file size (limit to 5MB)
+        # Check file size (limit to 5MB)
         max_file_size = 5 * 1024 * 1024  # 5 MB
         if image_file.size > max_file_size:
             return Response({'error': 'File size exceeds the limit of 5MB.'}, status=status.HTTP_400_BAD_REQUEST)
         
-        # additional
+        # Additional
         try:
             image = Image.open(image_file)
             image.verify()
@@ -56,7 +65,12 @@ class DetectRegionsView(APIView):
             image = image.convert('RGB')
         except (IOError, SyntaxError):
             return Response({'error': 'Invalid image file.'}, status=status.HTTP_400_BAD_REQUEST)
-
+    
+    def check_for_face(self, image):
+        image_np = np.array(image)
+        detector = dlib.get_frontal_face_detector()
+        faces = detector(image_np, 1)
+        return len(faces) > 0
 
 '''
 #####################
